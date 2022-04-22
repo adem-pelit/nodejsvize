@@ -12,7 +12,7 @@ app.listen(port)
 
 app.get("/",
     (req, res) => {
-        res.send("<a href='/test_text'>/test_text</a>")
+        res.send("<a href='/test_text'>/test_text</a><br><a href='/test_html'>/test_html</a><br><a href='/test_json'>/test_json</a><br><a href='/test_geocode'>/test_geocode</a><br><a href='/test_weather'>/test_weather</a><br></br>")
     }
 )
 
@@ -57,6 +57,7 @@ app.get("/test_geocode",
 
 app.get("/test_weather",
     (req, res) => {
+        console.log(weather)
         url = "http://api.weatherstack.com/current?access_key=67fbcd5cf69daf6faa39b12e2b661a56&query=40.18333,29.06667&units=m"
         axios.get(url).then((resq)=>{
             res.send(JSON.stringify(
