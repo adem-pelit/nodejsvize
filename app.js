@@ -44,10 +44,28 @@ app.get("/test_json",
 app.get("/test_geocode",
     (req, res) => {
         url = "http://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent("Bursa") + ".json?access_token=pk.eyJ1IjoiaWZzNSIsImEiOiJjbDFveGZ2cjIxNjV3M2tvMm1kaW45MjF3In0.jakzckr8Zkj8Xdbo8yQ05w"
-        result = ""
         axios.get(url).then((resq)=>{
-            console.log(resq.data.features[0].center)
+            res.send(JSON.stringify(
+                {
+                    enlem:resq.data.features[0].center[0],
+                    boylam:resq.data.features[0].center[1]
+                }
+            ))
         })
-        res.send("resq")
+    }
+)
+
+app.get("/test_weather",
+    (req, res) => {
+        url = "http://api.weatherstack.com/current?access_key=67fbcd5cf69daf6faa39b12e2b661a56&query=40.18333,29.06667&units=m"
+        axios.get(url).then((resq)=>{
+            res.send(JSON.stringify(
+                {
+                    temperature: resq.data.current.temperature,
+                    pressure: resq.data.current.pressure,
+                    humidity: resq.data.current.humidity
+                }
+            ))
+        })
     }
 )
